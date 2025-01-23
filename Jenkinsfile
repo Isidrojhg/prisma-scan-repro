@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "isidroj/testrepro"
+    registry = "35.239.167.113.sslip.io/test1/test-repro"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Isidrojhg/prismarepro.git'
+        git 'https://github.com/Isidrojhg/prisma-scan-repro.git'
       }
     }
     stage('Building image') {
@@ -21,7 +21,7 @@ pipeline {
     stage('Scan') {
             steps {
                 // Scan the image | Input value from first script copied below, ''
-                prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: 'isidroj/testrepro*', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+                prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: '35.239.167.113.sslip.io/test1/test-repro*', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
             }
         }
     stage('Deploy Image') {
