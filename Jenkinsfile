@@ -18,6 +18,7 @@ pipeline {
     }
     stage('Scan') {
             steps {
+                sh "docker images" 
                 // Scan the image | Input value from first script copied below, ''
                 prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: 'public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
             }
