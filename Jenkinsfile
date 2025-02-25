@@ -13,29 +13,26 @@ pipeline {
     }
     stage('Building image') {
       steps{
-        script {
-          dockerImage = docker.build registry + ":v1"
-        }
+        sh "docker pull public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation"
       }
     }
     stage('Scan') {
             steps {
                 // Scan the image | Input value from first script copied below, ''
-                prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: '35.239.167.113.sslip.io/test1/test-repro*', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+                prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: 'public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
             }
         }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
+    // stage('Deploy Image') {
+    //   steps{
+    //     script {
+    //       docker.withRegistry( '', registryCredential ) {
+    //         dockerImage.push()
+    //       }
+    //     }
+    //   }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+        sh "docker rmi public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation"
       }
     }
   }
@@ -45,3 +42,4 @@ pipeline {
       }
   }
 }
+
