@@ -6,11 +6,11 @@ pipeline {
   }
   agent any
   stages {
-    stage('Cloning Git') {
-      steps {
-        git ([url: 'https://github.com/Isidrojhg/prisma-scan-repro.git', branch: 'master])
-      }
-    }
+    // stage('Cloning Git') {
+    //   steps {
+    //     git ([url: 'https://github.com/Isidrojhg/prisma-scan-repro.git', branch: 'master])
+    //   }
+    // }
     stage('Building image') {
       steps{
         sh "docker pull public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation"
