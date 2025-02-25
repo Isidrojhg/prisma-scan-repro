@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Isidrojhg/prisma-scan-repro.git'
+        git ([url: 'https://github.com/Isidrojhg/prisma-scan-repro.git', branch: 'master])
       }
     }
     stage('Building image') {
