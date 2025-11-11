@@ -1,7 +1,13 @@
-FROM 35.239.167.113.sslip.io/test1/python:3.11
-WORKDIR /service
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . ./
-EXPOSE 8080
-ENTRYPOINT ["python3", "app.py"]
+FROM redhat/ubi9:latest
+
+RUN groupadd -r myuser && useradd -r -u 1001 -g myuser myuser
+
+RUN mkdir -p /app/data && \
+    chmod 700 /app/data && \
+    chown myuser:myuser /app/data
+
+USER myuser
+
+WORKDIR /app/data
+
+ADD *.jar /app/data
