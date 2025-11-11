@@ -13,14 +13,14 @@ pipeline {
     // }
     stage('Building image') {
       steps{
-        sh "docker pull public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation"
+        sh "docker build -t myimage:v1"
       }
     }
     stage('Scan') {
             steps {
                 sh "docker images" 
                 // Scan the image | Input value from first script copied below, ''
-                prismaCloudScanImage ca: '', cert: '', containerized: true, dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: 'public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation', key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+                prismaCloudScanImage ca: '', cert: '', containerized: true, dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: 'myimage:v1', key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
             }
         }
     // stage('Deploy Image') {
