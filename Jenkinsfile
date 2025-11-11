@@ -13,7 +13,7 @@ pipeline {
     // }
     stage('Building image') {
       steps{
-        sh "docker build -t myimage:v1"
+        sh "docker build -t myimage:v1 ."
       }
     }
     stage('Scan') {
