@@ -33,7 +33,7 @@ pipeline {
     //   }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi public.ecr.aws/spotinst/spotinst-kubernetes-controller:support-skip-tls-validation"
+        sh "docker rmi myimage:v1"
       }
     }
   }
